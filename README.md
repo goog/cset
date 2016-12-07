@@ -1,6 +1,3 @@
-C code about set operation
-
-step 1, a simple way,  suppose each element is different
+# set operation based on hash map
 
 
-#todo the hash method
