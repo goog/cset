@@ -8,7 +8,6 @@
 
 typedef struct bucket
 {
-    int type;     // kv type
     int int_key;
     int int_value;
 
@@ -16,7 +15,7 @@ typedef struct bucket
     char *value;    // string value pointer
 
     int use_flag;    // 0 not using
-    struct bucket *zipper_head;
+    struct bucket *next;
 } bucket_s;
 
 
@@ -27,5 +26,11 @@ typedef struct HASH
 } hash_s;
 
 
-extern hash_s *hash_init(void);
+hash_s *hash_init(void);
+void free_hash(hash_s *hash);
+int hash_insert_strstr_kv(hash_s *hash, const char *key, const char *value);
+int hash_insert_strint_kv(hash_s *hash, const char *key, int value);
+int hash_del_strkey(hash_s *hash, const char *key);
+int hash_get_intvalue_by_str(hash_s *hash, char *key);
+
 #endif

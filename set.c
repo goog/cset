@@ -5,7 +5,7 @@
 
 #include "jhash.h"
 
-//#define PRESENT 16
+#define PRESENT 16
 
 
 typedef struct HASH set_s;
@@ -14,15 +14,6 @@ typedef struct HASH set_s;
 set_s *set_init()
 {
     return hash_init();
-    #if 0
-
-    set_s *h = (set_s *)calloc(sizeof(set_s), 1);
-    #if DEBUG
-    printf("set pointer %p.\n", h);
-    #endif
-    return h;
-
-    #endif
 }
 
 
@@ -34,8 +25,7 @@ void free_set(set_s *s)
 
 int set_add(set_s *set, char *key)
 {
-    int present = 16;
-    return hash_insert(set, 1, key, &present);
+    return hash_insert_strint_kv(set, key, PRESENT);
 }
 
 
@@ -67,7 +57,7 @@ set_s *set_intersection(set_s *a, set_s *b)
                 set_add(result, buck->key);
             }
             
-            buck = buck->zipper_head;
+            buck = buck->next;
         }     
 
     }
@@ -98,7 +88,7 @@ set_s *set_diff(set_s *a, set_s *b)
                 set_add(result, buck->key);
             }
             
-            buck = buck->zipper_head;
+            buck = buck->next;
         }        
 
     }
@@ -128,7 +118,7 @@ void print_set(set_s *set)
                 printf("set element: %s.\n", buck->key);
             }
             
-            buck = buck->zipper_head;
+            buck = buck->next;
         }        
 
     }
@@ -139,7 +129,7 @@ void print_set(set_s *set)
 int main()
 {
     set_s *s = set_init();
-    printf("set pointer : %p.\n", s);
+    
 
     printf("begin to insert.\n");
     set_add(s, "abc");
@@ -149,9 +139,11 @@ int main()
     set_add(s, "ttttt");
     set_add(s, "kkk");
 
+    printf("there should be 4 elements.\n");
     print_set(s);
 
     set_del(s, "kkk");
+    printf("there should be 3 elements.\n");
     print_set(s);
 
 }

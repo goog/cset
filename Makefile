@@ -1,6 +1,6 @@
 TARGET=set_test
 
-$(TARGET):set.c jhash.c hash_func.c
+$(TARGET):set.c jhash.c hash_func.c xxhash.c
 	gcc -o $@ $^
 
 
